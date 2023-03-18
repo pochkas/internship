@@ -1,0 +1,10 @@
+package com.digdes.school.expression;
+
+import java.util.Map;
+
+public interface Expression {
+
+
+
+
+}

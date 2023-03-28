@@ -17,11 +17,11 @@ public class ExpressionParserTest {
 
 
         if (command.equals("DELETE")) {
-            return new DeleteExpression();
+            return new DeleteExpression(expression);
         } else if (command.equals("UPDATE")) {
-            return new UpdateExpression();
+            return new UpdateExpression(expression);
         } else if (command.equals("SELECT")) {
-            return new SelectExpression();
+            return new SelectExpression(expression);
         } else if (command.equals("INSERT")) {
             return new InsertExpression();
         } else {

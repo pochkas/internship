@@ -1,14 +1,27 @@
 package com.digdes.school.expression.implemetation;
 
 import com.digdes.school.expression.Expression;
+import com.digdes.school.expression.ModifyingExpression;
 
-public class DeleteExpression implements Expression {
+import java.util.List;
+import java.util.Map;
 
-    public DeleteExpression(Long id){
+public class DeleteExpression extends ExpressionWithWhere implements Expression, ModifyingExpression {
+
+
+
+    public DeleteExpression(String expression) {
+        super(expression, "(?i)delete\\s+(.*?)\\s*(where.*)?");
 
     }
 
 
-    public DeleteExpression() {
+    @Override
+    public List<Map<String, Object>> execute(List<Map<String, Object>> mapList) {
+
+        List<Map<String, Object>> newListMap = mapList.stream().filter(row -> condition.matches(row)).toList();
+        mapList.removeAll(newListMap);
+        return mapList;
+
     }
 }

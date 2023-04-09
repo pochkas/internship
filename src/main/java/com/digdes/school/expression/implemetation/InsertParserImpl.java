@@ -18,19 +18,26 @@ public class InsertParserImpl implements InsertParser {
         //"INSERT VALUES 'lastName' = 'Федоров' , 'id'=3, 'age'=40, 'active'=true")
 
         String strWithoutInsert = insertExpression.substring(13, insertExpression.length());
-
-        char[] chars = strWithoutInsert.toCharArray();
-
-        String[] sentences = strWithoutInsert.trim().split(",");
-
         ArrayList<String> tokens = new ArrayList<>();
 
-        for (String s : sentences) {
+        if(strWithoutInsert.contains(",")) {
 
-            String[] sentencesSplit = s.split("=");
+            char[] chars = strWithoutInsert.toCharArray();
+
+            String[] sentences = strWithoutInsert.trim().split(",");
+
+            for (String s : sentences) {
+
+                String[] sentencesSplit = s.split("=");
+                tokens.add(sentencesSplit[0].trim());
+                tokens.add(sentencesSplit[1].trim());
+
+            }
+        }
+        else{
+            String[] sentencesSplit = strWithoutInsert.split("=");
             tokens.add(sentencesSplit[0].trim());
             tokens.add(sentencesSplit[1].trim());
-
         }
 
         return tokens;

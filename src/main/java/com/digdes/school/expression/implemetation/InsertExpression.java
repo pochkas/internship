@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class InsertExpression implements Expression, ModifyingExpression {
 
     Map<String, Object> map;
+
     public InsertExpression() {
 
     }
@@ -21,10 +22,12 @@ public class InsertExpression implements Expression, ModifyingExpression {
 
 
     @Override
-    public  List<Map<String, Object>> execute(List<Map<String, Object>> mapList) {
+    public List<Map<String, Object>> execute(List<Map<String, Object>> mapList) {
 
-       mapList.forEach(row -> row.putAll(map));
-        return mapList.stream().collect(Collectors.toUnmodifiableList());
+        mapList.add(map);
+        List<Map<String, Object>> listWithInsert = new ArrayList<>();
+        listWithInsert.add(map);
+        return listWithInsert;
 
 
     }

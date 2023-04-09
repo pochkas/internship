@@ -8,8 +8,9 @@ public class Main {
     public static void main(String... args) {
         JavaSchoolStarter starter = new JavaSchoolStarter();
         try {
+
 //Вставка строки в коллекцию
-            List<Map<String, Object>> result1 = starter.execute("INSERT VALUES 'lastName' = 'Федоров' , 'id'=3, 'age'=40, 'active'=true");
+              List<Map<String, Object>> result1 = starter.execute("INSERT VALUES 'lastName' = 'Федоров' , 'id'=3, 'age'=40, 'active'=true");
 //Изменение значения которое выше записывали
             List<Map<String, Object>> result2 = starter.execute("UPDATE VALUES 'active'=false, 'cost'=10.1 where 'id'=3");
 

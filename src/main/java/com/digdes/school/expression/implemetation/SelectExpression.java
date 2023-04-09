@@ -8,8 +8,12 @@ import java.util.Map;
 public class SelectExpression extends ExpressionWithWhere implements Expression {
 
 
+
     public SelectExpression(String expression) {
+
         super(expression, "(?i)select\\s+(.*?)\\s*(where.*)?");
+
+
     }
 
     @Override

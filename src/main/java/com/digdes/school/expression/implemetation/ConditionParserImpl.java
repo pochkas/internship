@@ -7,6 +7,7 @@ import com.digdes.school.expression.ConditionParser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ConditionParserImpl implements ConditionParser {
 
@@ -18,7 +19,7 @@ public class ConditionParserImpl implements ConditionParser {
 
         ArrayList<String> tokens = new ArrayList<>();
 
-//SELECT WHERE ‘age’>=30 and ‘lastName’ ilike ‘%п%’ -> [age, >=, 30, and, lastname, ilike, %p%]
+        //SELECT WHERE ‘age’>=30 and ‘lastName’ ilike ‘%п%’ -> [age, >=, 30, and, lastname, ilike, %p%]
         int i = 0;
         while (i < chars.length) {
 
@@ -111,6 +112,8 @@ public class ConditionParserImpl implements ConditionParser {
         }
         return null;
     }
+
+
 
 
 }

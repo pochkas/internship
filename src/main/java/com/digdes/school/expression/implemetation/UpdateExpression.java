@@ -6,18 +6,21 @@ import com.digdes.school.expression.ModifyingExpression;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UpdateExpression extends ExpressionWithWhere implements Expression, ModifyingExpression {
 
     // UPDATE VALUES ‘active’=false, ‘cost’=10.1 where ‘id’=3
-
-    String regex;
+    // (?i)^UPDATE\s+VALUES\s+(.*)\s+(WHERE\s+.+)$
 
     Map<String, Object> map;
 
     public UpdateExpression(String expression) {
-        super(expression, "(?i)update\\s+(.*?)\\s*(where.*)?");
+
+        super(expression, "(?i)^UPDATE\\s+VALUES\\s+(.*)\\s+(WHERE\\s+.+)$");
     }
 
     @Override

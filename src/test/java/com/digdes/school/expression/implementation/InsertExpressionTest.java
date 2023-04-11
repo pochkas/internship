@@ -17,14 +17,16 @@ public class InsertExpressionTest {
     @Test
     public void executeSuccessTest() {
 
+        String expression = "INSERT VALUES 'lastName' = 'Федоров' , 'id'=3, 'age'=40, 'active'=true";
+
 
         Map<String, Object> row3 = new HashMap<>();
-        row3.put("id",3);
-        row3.put("lastName","Федоров");
-        row3.put("age",40);
-        row3.put("active", true);
+        row3.put("'id'",3L);
+        row3.put("'lastName'","Федоров");
+        row3.put("'age'",40L);
+        row3.put("'active'", true);
 
-        InsertExpression insertExpression = new InsertExpression(row3);
+        InsertExpression insertExpression = new InsertExpression(expression);
 
         List<Map<String, Object>> mapList = new ArrayList<>();
         mapList.add(new HashMap<>());
@@ -38,8 +40,28 @@ public class InsertExpressionTest {
         assertEquals(expected, result);
         assertEquals(mapList.size(), 2);
 
+    }
 
+    @Test
+    public void nullSuccessTest() {
+        String expression = "INSERT VALUES 'lastName' = null , 'id'=3, 'age'=40, 'active'=true";
 
+        Map<String, Object> row = new HashMap<>();
+        row.put("'id'",3L);
+        row.put("'age'",40L);
+        row.put("'active'", true);
+
+        InsertExpression insertExpression = new InsertExpression(expression);
+
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        mapList.add(new HashMap<>());
+
+        List<Map<String, Object>> result = insertExpression.execute(mapList);
+
+        List<Map<String, Object>> expected = new ArrayList<>();
+        expected.add(row);
+        assertEquals(expected, result);
+        assertEquals(mapList.size(), 2);
     }
 
 }

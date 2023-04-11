@@ -10,22 +10,19 @@ import java.util.stream.Collectors;
 
 public class InsertExpression implements Expression, ModifyingExpression {
 
-    Map<String, Object> map;
+    HashMap<String, Object> map;
 
-    public InsertExpression() {
-
+    public InsertExpression(String expression) {
+        map=ExpressionWithValues.ExpressionToMap(expression);
     }
-
-    public InsertExpression(Map<String, Object> map) {
-        this.map = map;
-    }
-
 
     @Override
     public List<Map<String, Object>> execute(List<Map<String, Object>> mapList) {
 
+
         mapList.add(map);
         List<Map<String, Object>> listWithInsert = new ArrayList<>();
+
         listWithInsert.add(map);
         return listWithInsert;
 

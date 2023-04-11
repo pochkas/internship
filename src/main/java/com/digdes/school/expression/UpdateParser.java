@@ -11,4 +11,5 @@ public interface UpdateParser {
     public String parserForUpdate(String expression);
 
     public List<String> createUpdateTokens(String expression);
+
 }

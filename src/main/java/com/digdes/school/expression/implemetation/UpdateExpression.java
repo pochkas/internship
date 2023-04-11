@@ -19,8 +19,8 @@ public class UpdateExpression extends ExpressionWithWhere implements Expression,
     Map<String, Object> map;
 
     public UpdateExpression(String expression) {
-
         super(expression, "(?i)^UPDATE\\s+VALUES\\s+(.*)\\s+(WHERE\\s+.+)$");
+        map=ExpressionWithValues.ExpressionToMap(expression);
     }
 
     @Override

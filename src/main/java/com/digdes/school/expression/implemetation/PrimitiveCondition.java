@@ -14,65 +14,122 @@ public class PrimitiveCondition implements Condition {
 
     protected Value value;
 
-    public PrimitiveCondition(){}
+    public PrimitiveCondition() {
+    }
 
-    public PrimitiveCondition(String columnName, Command command, Value value){
-        this.columnName=columnName;
-        this.command=command;
-        this.value=value;
+    public PrimitiveCondition(String columnName, Command command, Value value) {
+        this.columnName = columnName;
+        this.command = command;
+        this.value = value;
     }
 
     public boolean matches(Map<String, Object> row) {
+        Object rowV = row.get(columnName);
         if (command.equals(Command.EQUALS)) {
-            Object rowV = row.get(columnName);
-            return rowV.equals(value.value);
+            return  Objects.equals(rowV, value.value);
         } else if (command.equals(Command.NON_EQUALS)) {
-            Object rowV = row.get(columnName);
-            return !(rowV.equals(value.value));
+            return !Objects.equals(rowV, value.value);
         } else if (command.equals(Command.like)) {
-            Object rowV = row.get(columnName);
-            return rowV.equals(value.value);
+            return commandForLike(rowV);
         } else if (command.equals(Command.ilike)) {
-            Object rowV = row.get(columnName);
-            return rowV.equals(value.value);
+            return commandForIlike(rowV);
         } else if (command.equals(Command.GREATER)) {
-            Object rowV = row.get(columnName);
             if (rowV instanceof Long) {
-                Long valueLong = Long.parseLong(value.value);
+                long valueLong = Long.parseLong(value.value);
                 return (Long) rowV > valueLong;
             } else if (rowV instanceof Double) {
-                Double valueLong = Double.parseDouble(value.value);
-                return (Double) rowV > valueLong;
+                double valueDouble = Double.parseDouble(value.value);
+                return (Double) rowV > valueDouble;
+            } else if (rowV instanceof String) {
+                String valueStr = value.value;
+                String a = (String) rowV;
+                int i = a.compareTo(valueStr);
+                if (i > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } else if (command.equals(Command.SMALLER)) {
-            Object rowV = row.get(columnName);
             if (rowV instanceof Long) {
-                Long valueLong = Long.parseLong(value.value);
+                long valueLong = Long.parseLong(value.value);
                 return (Long) rowV < valueLong;
             } else if (rowV instanceof Double) {
-                Double valueLong = Double.parseDouble(value.value);
+                double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV < valueLong;
+            } else if (rowV instanceof String) {
+                String valueStr = value.value;
+                int i = ((String) rowV).compareTo(valueStr);
+                return i < 0;
             }
         } else if (command.equals(Command.GREATER_OR_EQUALS)) {
-            Object rowV = row.get(columnName);
             if (rowV instanceof Long) {
                 Long valueLong = Long.parseLong(value.value);
                 return (Long) rowV >= valueLong;
             } else if (rowV instanceof Double) {
                 Double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV >= valueLong;
+            } else if (rowV instanceof String) {
+                String valueStr = value.value;
+                int i = ((String) rowV).compareTo(valueStr);
+                if(i >= 0) {
+                    return true;
+                }
             }
         } else if (command.equals(Command.SMALLER_OR_EQUALS)) {
-            Object rowV = row.get(columnName);
             if (rowV instanceof Long) {
                 Long valueLong = Long.parseLong(value.value);
                 return (Long) rowV <= valueLong;
             } else if (rowV instanceof Double) {
                 Double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV <= valueLong;
+            } else if (rowV instanceof String) {
+                String valueStr = value.value;
+                int i = ((String) rowV).compareTo(valueStr);
+                if (i <= 0) {
+                    return true;
+                }
             }
         }
         return false;
+    }
+
+    public boolean commandForLike(Object rowV) {
+        String rowVStr = (String) rowV;
+        String valueStr = (String) value.object;
+        if (!valueStr.contains("%")) {
+            return rowVStr.equals(valueStr);
+        } else if (valueStr.startsWith("%") && valueStr.endsWith("%")) {
+            String newStr = valueStr.substring(1, valueStr.length() - 1);
+            return rowVStr.contains(newStr);
+        } else if (valueStr.startsWith("%")) {
+            String newStr = valueStr.substring(1);
+            return rowVStr.startsWith(newStr);
+        } else if (valueStr.endsWith("%")) {
+            String newStr = valueStr.substring(0, valueStr.length() - 1);
+            return rowVStr.endsWith(newStr);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean commandForIlike(Object rowV) {
+        String rowVStr = (String) rowV;
+        String valueStr = (String) value.object;
+        if (!valueStr.contains("%")) {
+            return rowVStr.equalsIgnoreCase(valueStr);
+        } else if (valueStr.startsWith("%") && valueStr.endsWith("%")) {
+            String newStr = valueStr.substring(1, valueStr.length() - 1);
+            return (rowVStr.toLowerCase()).contains(newStr.toLowerCase());
+        } else if (valueStr.startsWith("%")) {
+            String newStr = valueStr.substring(1);
+            return (rowVStr.toLowerCase()).startsWith(newStr.toLowerCase());
+        } else if (valueStr.endsWith("%")) {
+            String newStr = valueStr.substring(0, valueStr.length() - 1);
+            return (rowVStr.toLowerCase()).endsWith(newStr.toLowerCase());
+        } else {
+            return false;
+        }
     }
 
 

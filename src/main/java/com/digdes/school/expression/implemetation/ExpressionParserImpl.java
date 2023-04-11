@@ -8,12 +8,14 @@ import com.digdes.school.expression.implemetation.InsertExpression;
 import com.digdes.school.expression.implemetation.SelectExpression;
 import com.digdes.school.expression.implemetation.UpdateExpression;
 
+import java.util.HashMap;
+
 public class ExpressionParserImpl implements ExpressionParser {
 
 
     public Expression parse(String expression) {
 
-        String command = expression.substring(0,6);
+        String command = expression.substring(0, 6);
 
         if (command.equals("DELETE")) {
             return new DeleteExpression(expression);
@@ -22,14 +24,12 @@ public class ExpressionParserImpl implements ExpressionParser {
         } else if (command.equals("SELECT")) {
             return new SelectExpression(expression);
         } else if (command.equals("INSERT")) {
-            return new InsertExpression();
+            return new InsertExpression(expression);
         } else {
             throw new CommandException("Command was not found!");
         }
 
     }
-
-
 
 
 }

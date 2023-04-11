@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class UpdateParserImpl implements UpdateParser, TokensTransform {
 
     protected HashMap<String, Object> map= new HashMap<>();
+
     @Override
     public String parserForUpdate(String expression) {
 
@@ -21,11 +22,11 @@ public class UpdateParserImpl implements UpdateParser, TokensTransform {
 
         Matcher matcher = pattern.matcher(expression);
 
-        MatchResult result = matcher.toMatchResult();
+        if (matcher.find()) {
 
-        System.out.println(result.groupCount());
-
-        return result.group(1);
+            return matcher.group(1);
+        }
+        return null;
 
     }
 

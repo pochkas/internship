@@ -19,9 +19,9 @@ public class InsertTokensTransformImpl implements TokensTransform {
 
             String obj = tokens.get(i+1);
             Value value = new Value(obj);
-
-            map.put(str, value.object);
-
+            if(value.object!=null){
+                map.put(str, value.object);
+            }
         }
 
         return map;

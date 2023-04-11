@@ -14,15 +14,11 @@ public class ConditionParserImpl implements ConditionParser {
 
     @Override
     public List<String> parseCondition(String conditionWithWhere) {
-
         char[] chars = conditionWithWhere.toCharArray();
-
         ArrayList<String> tokens = new ArrayList<>();
-
         //SELECT WHERE ‘age’>=30 and ‘lastName’ ilike ‘%п%’ -> [age, >=, 30, and, lastname, ilike, %p%]
         int i = 0;
         while (i < chars.length) {
-
             if (chars[i] == 8216 || chars[i] == 39) {
                 StringBuilder builder = new StringBuilder();
                 builder.append(chars[i]);
@@ -34,16 +30,12 @@ public class ConditionParserImpl implements ConditionParser {
                 if (i < chars.length) {
                     builder.append(chars[i]);
                     i++;
-
                 }
                 tokens.add(builder.toString());
                 continue;
-
-
             }
             if (Character.isDigit(chars[i])) {
                 StringBuilder builder = new StringBuilder();
-
                 while (i < chars.length && (Character.isDigit(chars[i]) || chars[i] == '.')) {
                     builder.append(chars[i]);
                     i++;
@@ -60,7 +52,6 @@ public class ConditionParserImpl implements ConditionParser {
                 tokens.add(builder.toString());
                 continue;
             }
-
             if (Character.isLetter(chars[i])) {
                 StringBuilder builder = new StringBuilder();
                 while (i < chars.length && Character.isLetter(chars[i])) {
@@ -81,39 +72,28 @@ public class ConditionParserImpl implements ConditionParser {
                     tokens.add(builder.toString());
                 }
             }
-
         }
         return tokens;
     }
-
     @Override
     public Condition createCondition(List<String> tokens) {
-
         PrimitiveCondition primitiveCondition = null;
         HigherCondition higherCondition = null;
-
         if (tokens.size() <= 4) {
             for (int i = 0; i < tokens.size(); i++) {
                 primitiveCondition = new PrimitiveCondition(tokens.get(1), Command.fromString(tokens.get(2)), new Value(tokens.get(3)));
-
                 return primitiveCondition;
             }
         } else if (tokens.size() > 7) {
             for (int i = 0; i < tokens.size() - 7; i++) {
                 primitiveCondition = new PrimitiveCondition(tokens.get(i + 1), Command.fromString(tokens.get(i + 2)), new Value(tokens.get(i + 3)));
-
                 String operand = tokens.get(i + 4);
                 if (operand.equalsIgnoreCase("and") || operand.equalsIgnoreCase("or")) {
                     higherCondition = new HigherCondition(primitiveCondition, Operand.fromString(operand), new PrimitiveCondition(tokens.get(i + 5), Command.fromString(tokens.get(i + 6)), new Value(tokens.get(i + 7))));
                 }
-
                 return higherCondition;
             }
         }
         return null;
     }
-
-
-
-
 }

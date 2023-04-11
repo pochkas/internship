@@ -8,17 +8,25 @@ public class Value {
     protected Object object;
 
     public Value(String valueStr) {
-        if (valueStr.startsWith("'") && valueStr.endsWith("'")) {
-            value = valueStr;
-            object=valueStr;
+
+        value = valueStr;
+        char start = 8216;
+        char end = 8217;
+        char[] array = valueStr.toCharArray();
+
+
+        if (valueStr.equalsIgnoreCase("null")) {
+            object = null;
+        } else if ((valueStr.startsWith("'") && valueStr.endsWith("'")) || (array[0] == start && array[array.length - 1] == end)) {
+            object = valueStr.substring(1, valueStr.length() - 1);
         } else if (valueStr.contains(".")) {
-            value = valueStr;
-            object =  Double.parseDouble(valueStr);
+
+            object = Double.parseDouble(valueStr);
         } else if (valueStr.equalsIgnoreCase("true") || valueStr.equalsIgnoreCase("false")) {
-            value = valueStr;
+
             object = Boolean.parseBoolean(valueStr);
         } else {
-            value = valueStr;
+
             object = Long.parseLong(valueStr);
         }
     }

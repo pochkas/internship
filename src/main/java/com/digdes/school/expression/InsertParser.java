@@ -8,5 +8,4 @@ public interface InsertParser {
 
     public List<String> parseInsert(String insertExpression);
 
-    public InsertExpression createInsert(List<String> tokens);
 }

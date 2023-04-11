@@ -10,14 +10,12 @@ import java.util.Objects;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+// Выражения с WHERE, парсим это выражение с помощью регулярных выражений, для каждой функции свое регулярное выражение.
 public abstract class ExpressionWithWhere {
 
     protected Condition condition;
     protected String conditionWithWhere;
     private String regex;
-
-
     public ExpressionWithWhere(String expression, String regex) {
         this.regex = regex;
 
@@ -27,8 +25,7 @@ public abstract class ExpressionWithWhere {
         } else {
             ConditionParser parser = new ConditionParserImpl();
             List<String> tokens = parser.parseCondition(conditionWithWhere);
-            Condition conditionToCreate = parser.createCondition(tokens);
-            condition = conditionToCreate;
+            condition = parser.createCondition(tokens);
         }
     }
 

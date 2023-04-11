@@ -23,7 +23,7 @@ public class ExpressionParserTest {
         } else if (command.equals("SELECT")) {
             return new SelectExpression(expression);
         } else if (command.equals("INSERT")) {
-            return new InsertExpression();
+            return new InsertExpression(expression);
         } else {
             throw new CommandException("Command was not found!");
         }

@@ -155,8 +155,8 @@ public class ConditionParserImplTest {
     public void higherConditionTest() {
 
         PrimitiveCondition primitiveCondition1 = new PrimitiveCondition("age", Command.EQUALS, new Value("40"));
-        PrimitiveCondition primitiveCondition2= new PrimitiveCondition ("'lastname'", Command.EQUALS,  new Value("'Федоров'"));
-        PrimitiveCondition primitiveCondition3 = new PrimitiveCondition ("active", Command.EQUALS, new Value("true"));
+        PrimitiveCondition primitiveCondition2 = new PrimitiveCondition("'lastname'", Command.EQUALS, new Value("'Федоров'"));
+        PrimitiveCondition primitiveCondition3 = new PrimitiveCondition("active", Command.EQUALS, new Value("true"));
 
 
         HigherCondition expected = new HigherCondition(primitiveCondition1, Operand.OR, new HigherCondition(primitiveCondition2, Operand.AND, primitiveCondition3));
@@ -175,7 +175,38 @@ public class ConditionParserImplTest {
         tokens.add("=");
         tokens.add("true");
 
-        Condition result =conditionParser.createCondition(tokens);
+        Condition result = conditionParser.createCondition(tokens);
+
+
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    public void higherAndConditionTest() {
+
+        PrimitiveCondition primitiveCondition1 = new PrimitiveCondition("age", Command.EQUALS, new Value("40"));
+        PrimitiveCondition primitiveCondition2 = new PrimitiveCondition("'lastname'", Command.EQUALS, new Value("'Федоров'"));
+        PrimitiveCondition primitiveCondition3 = new PrimitiveCondition("active", Command.EQUALS, new Value("true"));
+
+
+        HigherCondition expected = new HigherCondition(new HigherCondition(primitiveCondition1, Operand.AND, primitiveCondition2), Operand.AND, primitiveCondition3);
+
+        List<String> tokens = new ArrayList<>();
+        tokens.add("WHERE");
+        tokens.add("age");
+        tokens.add("=");
+        tokens.add("40");
+        tokens.add("AND");
+        tokens.add("'lastname'");
+        tokens.add("=");
+        tokens.add("'Федоров'");
+        tokens.add("AND");
+        tokens.add("active");
+        tokens.add("=");
+        tokens.add("true");
+
+        Condition result = conditionParser.createCondition(tokens);
 
 
         assertEquals(expected, result);

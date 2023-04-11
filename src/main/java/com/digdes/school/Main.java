@@ -16,7 +16,7 @@ public class Main {
             List<Map<String, Object>> result2 = starter.execute("UPDATE VALUES 'active'=false, 'cost'=10.1 where 'id'=3");
             System.out.println(result2);
 
-            List<Map<String, Object>> result3 = starter.execute("SELECT WHERE ‘age’>=30 and ‘lastName’ ilike ‘%п%’");
+            List<Map<String, Object>> result3 = starter.execute("SELECT WHERE ‘age’>=30 and ‘lastName’ ilike ‘%р%’");
             System.out.println(result3);
 
             List<Map<String, Object>> result4 = starter.execute("DELETE WHERE ‘id’=3");

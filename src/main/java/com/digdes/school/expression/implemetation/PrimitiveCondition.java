@@ -2,6 +2,7 @@ package com.digdes.school.expression.implemetation;
 
 import com.digdes.school.Command;
 import com.digdes.school.expression.Condition;
+import com.digdes.school.expression.StringUtils;
 
 import java.util.Map;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class PrimitiveCondition implements Condition {
     }
 
     public PrimitiveCondition(String columnName, Command command, Value value) {
-        this.columnName = columnName;
+        this.columnName = StringUtils.stripQuotes(columnName);
         this.command = command;
         this.value = value;
     }
@@ -26,9 +27,9 @@ public class PrimitiveCondition implements Condition {
     public boolean matches(Map<String, Object> row) {
         Object rowV = row.get(columnName);
         if (command.equals(Command.EQUALS)) {
-            return  Objects.equals(rowV, value.value);
+            return  Objects.equals(rowV, value.object);
         } else if (command.equals(Command.NON_EQUALS)) {
-            return !Objects.equals(rowV, value.value);
+            return !Objects.equals(rowV, value.object);
         } else if (command.equals(Command.like)) {
             return commandForLike(rowV);
         } else if (command.equals(Command.ilike)) {

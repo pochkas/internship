@@ -21,7 +21,7 @@ public class DeleteExpression extends ExpressionWithWhere implements Expression,
 
         List<Map<String, Object>> newListMap = mapList.stream().filter(row -> condition.matches(row)).toList();
         mapList.removeAll(newListMap);
-        return mapList;
+        return newListMap;
 
     }
 }

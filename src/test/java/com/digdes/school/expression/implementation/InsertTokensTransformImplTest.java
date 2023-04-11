@@ -18,20 +18,20 @@ public class InsertTokensTransformImplTest {
 
         List<String> tokens = new ArrayList<>();
 
-        tokens.add("'lastName'");
+        tokens.add("lastName");
         tokens.add("'Федоров'");
-        tokens.add("'id'");
+        tokens.add("id");
         tokens.add("3");
-        tokens.add("'age'");
+        tokens.add("age");
         tokens.add("40");
-        tokens.add("'active'");
+        tokens.add("active");
         tokens.add("true");
 
         HashMap<String, Object> expected = new HashMap<>();
-        expected.put("'lastName'", "'Федоров'");
-        expected.put("'id'", 3L);
-        expected.put("'age'", 40L);
-        expected.put("'active'", true);
+        expected.put("lastName", "Федоров");
+        expected.put("id", 3L);
+        expected.put("age", 40L);
+        expected.put("active", true);
 
         HashMap<String, Object> result = tokensTransform.tokensTransform(tokens);
 

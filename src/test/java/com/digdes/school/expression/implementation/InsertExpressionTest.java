@@ -21,10 +21,10 @@ public class InsertExpressionTest {
 
 
         Map<String, Object> row3 = new HashMap<>();
-        row3.put("'id'",3L);
-        row3.put("'lastName'","Федоров");
-        row3.put("'age'",40L);
-        row3.put("'active'", true);
+        row3.put("id",3L);
+        row3.put("lastName","Федоров");
+        row3.put("age",40L);
+        row3.put("active", true);
 
         InsertExpression insertExpression = new InsertExpression(expression);
 
@@ -47,9 +47,9 @@ public class InsertExpressionTest {
         String expression = "INSERT VALUES 'lastName' = null , 'id'=3, 'age'=40, 'active'=true";
 
         Map<String, Object> row = new HashMap<>();
-        row.put("'id'",3L);
-        row.put("'age'",40L);
-        row.put("'active'", true);
+        row.put("id",3L);
+        row.put("age",40L);
+        row.put("active", true);
 
         InsertExpression insertExpression = new InsertExpression(expression);
 

@@ -15,100 +15,100 @@ public class ConditionTest {
 
     @Test
     public void successTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.EQUALS, new Value("'Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.EQUALS, new Value("'Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "'Petrov'");
+        row.put("lastName", "Petrov");
         assertTrue(condition.matches(row));
     }
 
     @Test
     public void successLikeIlikeTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.like, new Value("'Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.like, new Value("'Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "Petrov");
+        row.put("lastName", "Petrov");
         assertTrue(condition.matches(row));
     }
 
     @Test
     public void successLikeTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.like, new Value("'%Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.like, new Value("'%Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "Petrov");
+        row.put("lastName", "Petrov");
         assertTrue(condition.matches(row));
 
-        PrimitiveCondition condition1 = new PrimitiveCondition("'lastName'", Command.like, new Value("'Petrov%'"));
+        PrimitiveCondition condition1 = new PrimitiveCondition("lastName", Command.like, new Value("'Petrov%'"));
         Map<String, Object> row1 = new HashMap<>();
-        row1.put("'lastName'", "Petrov");
+        row1.put("lastName", "Petrov");
         assertTrue(condition1.matches(row1));
 
-        PrimitiveCondition condition2 = new PrimitiveCondition("'lastName'", Command.like, new Value("'%Petrov%'"));
+        PrimitiveCondition condition2 = new PrimitiveCondition("lastName", Command.like, new Value("'%Petrov%'"));
         Map<String, Object> row2 = new HashMap<>();
-        row2.put("'lastName'", "Petrov");
+        row2.put("lastName", "Petrov");
         assertTrue(condition2.matches(row2));
     }
 
     @Test
     public void successIlikeTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.ilike, new Value("'%PeTRov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.ilike, new Value("'%PeTRov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "Petrov");
+        row.put("lastName", "Petrov");
         assertTrue(condition.matches(row));
 
-        PrimitiveCondition condition1 = new PrimitiveCondition("'lastName'", Command.ilike, new Value("'PeTRov%'"));
+        PrimitiveCondition condition1 = new PrimitiveCondition("lastName", Command.ilike, new Value("'PeTRov%'"));
         Map<String, Object> row1 = new HashMap<>();
-        row1.put("'lastName'", "Petrov");
+        row1.put("lastName", "Petrov");
         assertTrue(condition1.matches(row1));
 
-        PrimitiveCondition condition2 = new PrimitiveCondition("'lastName'", Command.ilike, new Value("'%PeTRov%'"));
+        PrimitiveCondition condition2 = new PrimitiveCondition("lastName", Command.ilike, new Value("'%PeTRov%'"));
         Map<String, Object> row2 = new HashMap<>();
-        row2.put("'lastName'", "Petrov");
+        row2.put("lastName", "Petrov");
         assertTrue(condition2.matches(row2));
     }
 
     @Test
     public void failureLikeTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.like, new Value("'%Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.like, new Value("'%Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "Федоров");
+        row.put("lastName", "Федоров");
         assertFalse(condition.matches(row));
     }
 
     @Test
     public void successGreaterTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.GREATER, new Value("'Fedorov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER, new Value("'Fedorov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "'Petrov'");
+        row.put("lastName", "Petrov");
         assertTrue(condition.matches(row));
     }
     @Test
     public void failureGreaterTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.GREATER, new Value("'Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER, new Value("'Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "'Fedorov'");
+        row.put("lastName", "'Fedorov'");
         assertFalse(condition.matches(row));
     }
 
 
     @Test
     public void successGreaterOrEqualsTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.GREATER_OR_EQUALS, new Value("'Fedorov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER_OR_EQUALS, new Value("'Fedorov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "'Petrov'");
+        row.put("lastName", "'Petrov'");
         assertTrue(condition.matches(row));
     }
     @Test
     public void failureGreaterOrEqualsTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.GREATER_OR_EQUALS, new Value("'Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER_OR_EQUALS, new Value("'Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "'Fedorov'");
+        row.put("lastName", "'Fedorov'");
         assertFalse(condition.matches(row));
     }
 
     @Test
     public void successSmallerTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.SMALLER, new Value("'Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.SMALLER, new Value("'Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "'Fedorov'");
+        row.put("lastName", "'Fedorov'");
         assertTrue(condition.matches(row));
     }
     @Test
@@ -121,9 +121,9 @@ public class ConditionTest {
 
     @Test
     public void successSmallerOrEqualsTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.SMALLER_OR_EQUALS, new Value("'Petrov'"));
+        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.SMALLER_OR_EQUALS, new Value("'Petrov'"));
         Map<String, Object> row = new HashMap<>();
-        row.put("'lastName'", "'Petrov'");
+        row.put("lastName", "'Petrov'");
         assertTrue(condition.matches(row));
     }
     @Test

@@ -1,6 +1,7 @@
 package com.digdes.school.expression.implemetation;
 
 
+import com.digdes.school.expression.StringUtils;
 import com.digdes.school.expression.TokensTransform;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public class InsertTokensTransformImpl implements TokensTransform {
         for(int i=0; i<tokens.size(); i+=2){
 
             String str = tokens.get(i);
-
+            str = StringUtils.stripQuotes(str);
             String obj = tokens.get(i+1);
             Value value = new Value(obj);
             if(value.object!=null){

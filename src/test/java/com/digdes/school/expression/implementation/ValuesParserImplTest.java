@@ -1,8 +1,8 @@
 package com.digdes.school.expression.implementation;
 
 
-import com.digdes.school.expression.InsertParser;
-import com.digdes.school.expression.implemetation.InsertParserImpl;
+import com.digdes.school.expression.ValuesParser;
+import com.digdes.school.expression.implemetation.ValuesParserImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,16 +10,16 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InsertParserImplTest {
+public class ValuesParserImplTest {
 
-    InsertParser insertParser = new InsertParserImpl();
+    ValuesParser valuesParser = new ValuesParserImpl();
 
     @Test
     public void successTestParseInsert() {
 
         String example = "INSERT VALUES 'lastName' = 'Федоров' , 'id'=3, 'age'=40, 'active'=true";
 
-        List<String> result = insertParser.parseInsert(example);
+        List<String> result = valuesParser.parseInsert(example);
 
         List<Object> expected = new ArrayList<>();
         expected.add("'lastName'");

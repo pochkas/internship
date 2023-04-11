@@ -4,6 +4,7 @@ import com.digdes.school.Command;
 import com.digdes.school.Operand;
 import com.digdes.school.expression.Condition;
 import com.digdes.school.expression.ConditionParser;
+import com.digdes.school.expression.ConditionParserToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,25 +76,41 @@ public class ConditionParserImpl implements ConditionParser {
         }
         return tokens;
     }
+
     @Override
     public Condition createCondition(List<String> tokens) {
-        PrimitiveCondition primitiveCondition = null;
-        HigherCondition higherCondition = null;
-        if (tokens.size() <= 4) {
-            for (int i = 0; i < tokens.size(); i++) {
-                primitiveCondition = new PrimitiveCondition(tokens.get(1), Command.fromString(tokens.get(2)), new Value(tokens.get(3)));
-                return primitiveCondition;
+        ArrayList<ConditionParserToken> list = new ArrayList<ConditionParserToken>();
+        for (int i = 0; i < tokens.size(); i += 4) {
+            list.add(new PrimitiveCondition(tokens.get(i + 1), Command.fromString(tokens.get(i + 2)), new Value(tokens.get(i + 3))));
+            if(tokens.size()==i+4){
+                break;
             }
-        } else if (tokens.size() > 7) {
-            for (int i = 0; i < tokens.size() - 7; i++) {
-                primitiveCondition = new PrimitiveCondition(tokens.get(i + 1), Command.fromString(tokens.get(i + 2)), new Value(tokens.get(i + 3)));
-                String operand = tokens.get(i + 4);
-                if (operand.equalsIgnoreCase("and") || operand.equalsIgnoreCase("or")) {
-                    higherCondition = new HigherCondition(primitiveCondition, Operand.fromString(operand), new PrimitiveCondition(tokens.get(i + 5), Command.fromString(tokens.get(i + 6)), new Value(tokens.get(i + 7))));
+            Operand operand = Operand.fromString(tokens.get(i + 4));
+            list.add(operand);
+        }
+
+        List<ConditionParserToken> newTokens = new ArrayList<>();
+        HigherCondition prev = null;
+        int prevAnd = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).equals(Operand.AND)) {
+                newTokens.remove(newTokens.size() - 1);
+                if (prevAnd == i - 2) {
+                    prev = new HigherCondition(prev, Operand.AND, (Condition) list.get(i + 1));
+                } else {
+                    prev = new HigherCondition((Condition) list.get(i - 1), Operand.AND, (Condition) list.get(i + 1));
                 }
-                return higherCondition;
+                prevAnd = i;
+                newTokens.add(prev);
+                i++;
+            } else {
+                newTokens.add(list.get(i));
             }
         }
-        return null;
+        Condition result = (Condition) newTokens.get(0);
+        for (int i = 1; i < newTokens.size(); i += 2) {
+            result = new HigherCondition(result, Operand.OR, (Condition) newTokens.get(i + 1));
+        }
+        return result;
     }
 }

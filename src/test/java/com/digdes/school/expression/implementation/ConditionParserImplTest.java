@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ConditionParserImplTest {
 
@@ -148,6 +149,37 @@ public class ConditionParserImplTest {
         Condition expected = new HigherCondition(new PrimitiveCondition("'age'", Command.GREATER_OR_EQUALS, new Value("30")), Operand.AND, new PrimitiveCondition("'lastName'", Command.ilike, new Value("'%п%'")));
 
         assertEquals(expected, result);
+    }
+
+    @Test
+    public void higherConditionTest() {
+
+        PrimitiveCondition primitiveCondition1 = new PrimitiveCondition("age", Command.EQUALS, new Value("40"));
+        PrimitiveCondition primitiveCondition2= new PrimitiveCondition ("'lastname'", Command.EQUALS,  new Value("'Федоров'"));
+        PrimitiveCondition primitiveCondition3 = new PrimitiveCondition ("active", Command.EQUALS, new Value("true"));
+
+
+        HigherCondition expected = new HigherCondition(primitiveCondition1, Operand.OR, new HigherCondition(primitiveCondition2, Operand.AND, primitiveCondition3));
+
+        List<String> tokens = new ArrayList<>();
+        tokens.add("WHERE");
+        tokens.add("age");
+        tokens.add("=");
+        tokens.add("40");
+        tokens.add("OR");
+        tokens.add("'lastname'");
+        tokens.add("=");
+        tokens.add("'Федоров'");
+        tokens.add("AND");
+        tokens.add("active");
+        tokens.add("=");
+        tokens.add("true");
+
+        Condition result =conditionParser.createCondition(tokens);
+
+
+        assertEquals(expected, result);
+
     }
 
 }

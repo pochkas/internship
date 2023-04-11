@@ -1,6 +1,8 @@
 package com.digdes.school;
 
-public enum Operand {
+import com.digdes.school.expression.ConditionParserToken;
+
+public enum Operand implements ConditionParserToken {
 
     AND("AND"),
     OR("OR");

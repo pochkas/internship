@@ -1,6 +1,8 @@
 package com.digdes.school.expression.implementation;
 
 import com.digdes.school.Command;
+import com.digdes.school.Operand;
+import com.digdes.school.expression.implemetation.HigherCondition;
 import com.digdes.school.expression.implemetation.PrimitiveCondition;
 import com.digdes.school.expression.implemetation.Value;
 import org.junit.jupiter.api.Test;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.digdes.school.Operand.OR;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -80,6 +83,7 @@ public class ConditionTest {
         row.put("lastName", "Petrov");
         assertTrue(condition.matches(row));
     }
+
     @Test
     public void failureGreaterTest() {
         PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER, new Value("'Petrov'"));
@@ -96,6 +100,7 @@ public class ConditionTest {
         row.put("lastName", "'Petrov'");
         assertTrue(condition.matches(row));
     }
+
     @Test
     public void failureGreaterOrEqualsTest() {
         PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER_OR_EQUALS, new Value("'Petrov'"));
@@ -111,6 +116,7 @@ public class ConditionTest {
         row.put("lastName", "'Fedorov'");
         assertTrue(condition.matches(row));
     }
+
     @Test
     public void failureSmallerTest() {
         PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.SMALLER, new Value("'Fedorov'"));
@@ -126,6 +132,7 @@ public class ConditionTest {
         row.put("lastName", "'Petrov'");
         assertTrue(condition.matches(row));
     }
+
     @Test
     public void failureSmallerOrEqualsTest() {
         PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.SMALLER_OR_EQUALS, new Value("'Fedorov'"));
@@ -135,29 +142,35 @@ public class ConditionTest {
     }
 
     @Test
-    public void  nullSuccessTest() {
+    public void nullSuccessTest() {
         PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.SMALLER_OR_EQUALS, new Value("'Petrov'"));
         Map<String, Object> row = new HashMap<>();
         assertFalse(condition.matches(row));
     }
+
     @Test
-    public void  nullAgeSuccessTest() {
+    public void nullAgeSuccessTest() {
         PrimitiveCondition condition = new PrimitiveCondition("'age'", Command.NON_EQUALS, new Value("0"));
         Map<String, Object> row = new HashMap<>();
         assertTrue(condition.matches(row));
     }
+
     @Test
-    public void  nullGreaterOrEqualsSuccessTest() {
+    public void nullGreaterOrEqualsSuccessTest() {
         PrimitiveCondition condition = new PrimitiveCondition("'age'", Command.GREATER_OR_EQUALS, new Value("0"));
         Map<String, Object> row = new HashMap<>();
         assertFalse(condition.matches(row));
     }
+
     @Test
-    public void  nullSmallerOrEqualsSuccessTest() {
+    public void nullSmallerOrEqualsSuccessTest() {
         PrimitiveCondition condition = new PrimitiveCondition("'age'", Command.SMALLER_OR_EQUALS, new Value("0"));
         Map<String, Object> row = new HashMap<>();
         assertFalse(condition.matches(row));
     }
+
+
+
 
 
 }

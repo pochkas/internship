@@ -7,9 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public interface UpdateParser {
-
     public String parserForUpdate(String expression);
-
     public List<String> createUpdateTokens(String expression);
-
 }

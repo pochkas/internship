@@ -8,11 +8,8 @@ import com.digdes.school.expression.ConditionParserToken;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ConditionParserImpl implements ConditionParser {
-
-
     @Override
     public List<String> parseCondition(String conditionWithWhere) {
         char[] chars = conditionWithWhere.toCharArray();
@@ -60,7 +57,6 @@ public class ConditionParserImpl implements ConditionParser {
                     i++;
                 }
                 tokens.add(builder.toString());
-                continue;
             } else {
                 StringBuilder builder = new StringBuilder();
                 if (chars[i] == ' ') {
@@ -76,7 +72,6 @@ public class ConditionParserImpl implements ConditionParser {
         }
         return tokens;
     }
-
     @Override
     public Condition createCondition(List<String> tokens) {
         ArrayList<ConditionParserToken> list = new ArrayList<ConditionParserToken>();
@@ -88,7 +83,6 @@ public class ConditionParserImpl implements ConditionParser {
             Operand operand = Operand.fromString(tokens.get(i + 4));
             list.add(operand);
         }
-
         List<ConditionParserToken> newTokens = new ArrayList<>();
         HigherCondition prev = null;
         int prevAnd = 0;

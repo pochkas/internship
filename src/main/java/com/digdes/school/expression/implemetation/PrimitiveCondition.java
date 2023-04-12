@@ -7,23 +7,16 @@ import com.digdes.school.expression.StringUtils;
 import java.util.Map;
 import java.util.Objects;
 
+// Conditions without AND/OR
 public class PrimitiveCondition implements Condition {
-
     protected String columnName;
-
     protected Command command;
-
     protected Value value;
-
-    public PrimitiveCondition() {
-    }
-
     public PrimitiveCondition(String columnName, Command command, Value value) {
         this.columnName = StringUtils.stripQuotes(columnName);
         this.command = command;
         this.value = value;
     }
-
     public boolean matches(Map<String, Object> row) {
         Object rowV = row.get(columnName);
         if (command.equals(Command.EQUALS)) {
@@ -45,11 +38,7 @@ public class PrimitiveCondition implements Condition {
                 String valueStr = value.value;
                 String a = (String) rowV;
                 int i = a.compareTo(valueStr);
-                if (i > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return i > 0;
             }
         } else if (command.equals(Command.SMALLER)) {
             if (rowV instanceof Long) {
@@ -65,36 +54,31 @@ public class PrimitiveCondition implements Condition {
             }
         } else if (command.equals(Command.GREATER_OR_EQUALS)) {
             if (rowV instanceof Long) {
-                Long valueLong = Long.parseLong(value.value);
+                long valueLong = Long.parseLong(value.value);
                 return (Long) rowV >= valueLong;
             } else if (rowV instanceof Double) {
-                Double valueLong = Double.parseDouble(value.value);
+                double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV >= valueLong;
             } else if (rowV instanceof String) {
                 String valueStr = value.value;
                 int i = ((String) rowV).compareTo(valueStr);
-                if(i >= 0) {
-                    return true;
-                }
+                return i >= 0;
             }
         } else if (command.equals(Command.SMALLER_OR_EQUALS)) {
             if (rowV instanceof Long) {
-                Long valueLong = Long.parseLong(value.value);
+                long valueLong = Long.parseLong(value.value);
                 return (Long) rowV <= valueLong;
             } else if (rowV instanceof Double) {
-                Double valueLong = Double.parseDouble(value.value);
+                double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV <= valueLong;
             } else if (rowV instanceof String) {
                 String valueStr = value.value;
                 int i = ((String) rowV).compareTo(valueStr);
-                if (i <= 0) {
-                    return true;
-                }
+                return i <= 0;
             }
         }
         return false;
     }
-
     public boolean commandForLike(Object rowV) {
         String rowVStr = (String) rowV;
         String valueStr = (String) value.object;
@@ -113,7 +97,6 @@ public class PrimitiveCondition implements Condition {
             return false;
         }
     }
-
     public boolean commandForIlike(Object rowV) {
         String rowVStr = (String) rowV;
         String valueStr = (String) value.object;
@@ -132,8 +115,6 @@ public class PrimitiveCondition implements Condition {
             return false;
         }
     }
-
-
     @Override
     public String toString() {
         return "PrimitiveCondition{" +
@@ -142,7 +123,6 @@ public class PrimitiveCondition implements Condition {
                 ", value=" + value +
                 '}';
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -150,7 +130,6 @@ public class PrimitiveCondition implements Condition {
         PrimitiveCondition that = (PrimitiveCondition) o;
         return Objects.equals(columnName, that.columnName) && command == that.command && Objects.equals(value, that.value);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(columnName, command, value);

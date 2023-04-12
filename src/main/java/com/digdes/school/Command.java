@@ -1,7 +1,6 @@
 package com.digdes.school;
 
 public enum Command {
-
     like("like"),
     ilike("ilike"),
     EQUALS("="),
@@ -10,17 +9,13 @@ public enum Command {
     SMALLER("<"),
     GREATER_OR_EQUALS(">="),
     SMALLER_OR_EQUALS("<=");
-
-    private  String text;
-
+    private final String text;
     Command(String text){
         this.text=text;
     }
-
     public String getText() {
         return this.text;
     }
-
     public static Command fromString(String text) {
         for (Command command : Command.values()) {
             if (command.text.equalsIgnoreCase(text)) {
@@ -29,7 +24,4 @@ public enum Command {
         }
         return null;
     }
-
-
-
 }

@@ -3,34 +3,25 @@ package com.digdes.school.expression.implemetation;
 import java.util.Objects;
 
 public class Value {
-
     protected String value;
     protected Object object;
-
     public Value(String valueStr) {
-
         value = valueStr;
         char start = 8216;
         char end = 8217;
         char[] array = valueStr.toCharArray();
-
-
         if (valueStr.equalsIgnoreCase("null")) {
             object = null;
         } else if ((valueStr.startsWith("'") && valueStr.endsWith("'")) || (array[0] == start && array[array.length - 1] == end)) {
             object = valueStr.substring(1, valueStr.length() - 1);
         } else if (valueStr.contains(".")) {
-
             object = Double.parseDouble(valueStr);
         } else if (valueStr.equalsIgnoreCase("true") || valueStr.equalsIgnoreCase("false")) {
-
             object = Boolean.parseBoolean(valueStr);
         } else {
-
             object = Long.parseLong(valueStr);
         }
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,12 +29,10 @@ public class Value {
         Value value1 = (Value) o;
         return Objects.equals(value, value1.value) && Objects.equals(object, value1.object);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(value, object);
     }
-
     @Override
     public String toString() {
         return value;

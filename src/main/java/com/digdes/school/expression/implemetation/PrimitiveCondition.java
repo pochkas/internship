@@ -1,17 +1,20 @@
 package com.digdes.school.expression.implemetation;
 
 import com.digdes.school.Command;
+import com.digdes.school.exception.CommandException;
+import com.digdes.school.exception.ConditionException;
 import com.digdes.school.expression.Condition;
 import com.digdes.school.expression.StringUtils;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 // Conditions without AND/OR
 public class PrimitiveCondition implements Condition {
     protected String columnName;
     protected Command command;
     protected Value value;
+
+    private static Set<String> supportedFieldNames= new HashSet<>(Arrays.asList("id", "lastname", "age", "cost", "active"));
     public PrimitiveCondition(String columnName, Command command, Value value) {
         this.columnName = StringUtils.stripQuotes(columnName);
         this.command = command;
@@ -19,13 +22,26 @@ public class PrimitiveCondition implements Condition {
     }
     public boolean matches(Map<String, Object> row) {
         Object rowV = row.get(columnName);
+        if (!StringUtils.validColumnName(columnName)){
+            throw new CommandException(columnName+" is not a valid field name.");
+        }
         if (command.equals(Command.EQUALS)) {
             return  Objects.equals(rowV, value.object);
         } else if (command.equals(Command.NON_EQUALS)) {
             return !Objects.equals(rowV, value.object);
         } else if (command.equals(Command.like)) {
+            if(rowV==null){
+                return false;
+            } else if(!(rowV instanceof String)){
+                throw new ConditionException("Wrong type for command like. Expected String.");
+            }
             return commandForLike(rowV);
         } else if (command.equals(Command.ilike)) {
+            if(rowV==null){
+                return false;
+            } else if(!(rowV instanceof String)){
+                throw new ConditionException("Wrong type for command ilike. Expected String.");
+            }
             return commandForIlike(rowV);
         } else if (command.equals(Command.GREATER)) {
             if (rowV instanceof Long) {
@@ -34,11 +50,8 @@ public class PrimitiveCondition implements Condition {
             } else if (rowV instanceof Double) {
                 double valueDouble = Double.parseDouble(value.value);
                 return (Double) rowV > valueDouble;
-            } else if (rowV instanceof String) {
-                String valueStr = value.value;
-                String a = (String) rowV;
-                int i = a.compareTo(valueStr);
-                return i > 0;
+            } else if(rowV!=null) {
+                throw new ConditionException("Wrong type for this command GREATER. Expected Long or Double.");
             }
         } else if (command.equals(Command.SMALLER)) {
             if (rowV instanceof Long) {
@@ -47,10 +60,8 @@ public class PrimitiveCondition implements Condition {
             } else if (rowV instanceof Double) {
                 double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV < valueLong;
-            } else if (rowV instanceof String) {
-                String valueStr = value.value;
-                int i = ((String) rowV).compareTo(valueStr);
-                return i < 0;
+            } else if(rowV!=null) {
+                throw new ConditionException("Wrong type for this command SMALLER. Expected Long or Double.");
             }
         } else if (command.equals(Command.GREATER_OR_EQUALS)) {
             if (rowV instanceof Long) {
@@ -59,10 +70,8 @@ public class PrimitiveCondition implements Condition {
             } else if (rowV instanceof Double) {
                 double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV >= valueLong;
-            } else if (rowV instanceof String) {
-                String valueStr = value.value;
-                int i = ((String) rowV).compareTo(valueStr);
-                return i >= 0;
+            } else if(rowV!=null) {
+                throw new ConditionException("Wrong type for this command GREATER_OR_EQUALS. Expected Long or Double.");
             }
         } else if (command.equals(Command.SMALLER_OR_EQUALS)) {
             if (rowV instanceof Long) {
@@ -71,10 +80,8 @@ public class PrimitiveCondition implements Condition {
             } else if (rowV instanceof Double) {
                 double valueLong = Double.parseDouble(value.value);
                 return (Double) rowV <= valueLong;
-            } else if (rowV instanceof String) {
-                String valueStr = value.value;
-                int i = ((String) rowV).compareTo(valueStr);
-                return i <= 0;
+            } else if(rowV!=null) {
+                throw new ConditionException("Wrong type for this command SMALLER_OR_EQUALS. Expected Long or Double.");
             }
         }
         return false;

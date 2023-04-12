@@ -63,54 +63,11 @@ public class ConditionTest {
         assertFalse(condition.matches(row));
     }
     @Test
-    public void successGreaterTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER, new Value("'Fedorov'"));
-        Map<String, Object> row = new HashMap<>();
-        row.put("lastName", "Petrov");
-        assertTrue(condition.matches(row));
-    }
-
-    @Test
-    public void failureGreaterTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER, new Value("'Petrov'"));
-        Map<String, Object> row = new HashMap<>();
-        row.put("lastName", "'Fedorov'");
-        assertFalse(condition.matches(row));
-    }
-    @Test
-    public void successGreaterOrEqualsTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER_OR_EQUALS, new Value("'Fedorov'"));
-        Map<String, Object> row = new HashMap<>();
-        row.put("lastName", "'Petrov'");
-        assertTrue(condition.matches(row));
-    }
-    @Test
-    public void failureGreaterOrEqualsTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.GREATER_OR_EQUALS, new Value("'Petrov'"));
-        Map<String, Object> row = new HashMap<>();
-        row.put("lastName", "'Fedorov'");
-        assertFalse(condition.matches(row));
-    }
-    @Test
-    public void successSmallerTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.SMALLER, new Value("'Petrov'"));
-        Map<String, Object> row = new HashMap<>();
-        row.put("lastName", "'Fedorov'");
-        assertTrue(condition.matches(row));
-    }
-    @Test
     public void failureSmallerTest() {
         PrimitiveCondition condition = new PrimitiveCondition("'lastName'", Command.SMALLER, new Value("'Fedorov'"));
         Map<String, Object> row = new HashMap<>();
         row.put("'lastName'", "'Petrov'");
         assertFalse(condition.matches(row));
-    }
-    @Test
-    public void successSmallerOrEqualsTest() {
-        PrimitiveCondition condition = new PrimitiveCondition("lastName", Command.SMALLER_OR_EQUALS, new Value("'Petrov'"));
-        Map<String, Object> row = new HashMap<>();
-        row.put("lastName", "'Petrov'");
-        assertTrue(condition.matches(row));
     }
     @Test
     public void failureSmallerOrEqualsTest() {

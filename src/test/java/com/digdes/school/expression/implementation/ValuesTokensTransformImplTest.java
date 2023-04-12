@@ -44,7 +44,7 @@ public class ValuesTokensTransformImplTest {
         tokens.add("40");
         tokens.add("active");
         tokens.add("true");
-        String expected = "lastname has typeclass java.lang.Long, but lastname should be String.";
+        String expected = "lastname has type class java.lang.Long, but lastname should be String.";
         Exception exception = assertThrows(CommandException.class, () -> {
             tokensTransform.tokensTransform(tokens);
         });

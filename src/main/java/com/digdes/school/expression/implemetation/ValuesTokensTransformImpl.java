@@ -17,7 +17,7 @@ public class ValuesTokensTransformImpl implements TokensTransform {
         for (int i = 0; i < tokens.size(); i += 2) {
             String str = tokens.get(i);
             str = StringUtils.stripQuotes(str);
-            if (!supportedFieldNames.contains(str.toLowerCase())){
+            if (!StringUtils.validColumnName(str)){
                 throw new CommandException(str+" is not a valid field name.");
             }
                 String obj = tokens.get(i + 1);

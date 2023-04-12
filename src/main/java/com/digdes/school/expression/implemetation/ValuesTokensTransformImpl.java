@@ -10,17 +10,16 @@ import java.util.*;
 // Transform List<String> to HashMap<String, Object> in expressions with VALUES. Check if column name has right type
 public class ValuesTokensTransformImpl implements TokensTransform {
     protected HashMap<String, Object> map = new HashMap<>();
-    private static Set<String> supportedFieldNames= new HashSet<>(Arrays.asList("id", "lastname", "age", "cost", "active"));
 
     @Override
     public HashMap<String, Object> tokensTransform(List<String> tokens) {
         for (int i = 0; i < tokens.size(); i += 2) {
             String str = tokens.get(i);
             str = StringUtils.stripQuotes(str);
-            if (!StringUtils.validColumnName(str)){
-                throw new CommandException(str+" is not a valid field name.");
+            if (!StringUtils.validColumnName(str)) {
+                throw new CommandException(str + " is not a valid field name.");
             }
-                String obj = tokens.get(i + 1);
+            String obj = tokens.get(i + 1);
             Value value = new Value(obj);
             if (str.equalsIgnoreCase("id") && value.object != null && !(value.object instanceof Long)) {
                 throw new CommandException("id has type " + value.object.getClass() + ", but id should be Long.");

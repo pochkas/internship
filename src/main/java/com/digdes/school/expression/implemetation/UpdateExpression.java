@@ -3,6 +3,7 @@ package com.digdes.school.expression.implemetation;
 import com.digdes.school.expression.Expression;
 import com.digdes.school.expression.ModifyingExpression;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,8 +18,8 @@ public class UpdateExpression extends ExpressionWithWhere implements Expression,
     }
     @Override
     public List<Map<String, Object>> execute(List<Map<String, Object>> mapList) {
-        List<Map<String, Object>> resultList = mapList.stream().filter(row -> condition.matches(row)).collect(Collectors.toList());
+        List<Map<String, Object>> resultList = mapList.stream().filter(row -> condition.matches(row)).toList();
         resultList.forEach(row -> row.putAll(map));
-        return resultList;
+        return resultList.stream().map(row -> (Map<String, Object>) new HashMap<>(row)).collect(Collectors.toList());
     }
 }

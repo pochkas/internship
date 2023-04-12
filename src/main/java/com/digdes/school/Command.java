@@ -13,9 +13,6 @@ public enum Command {
     Command(String text){
         this.text=text;
     }
-    public String getText() {
-        return this.text;
-    }
     public static Command fromString(String text) {
         for (Command command : Command.values()) {
             if (command.text.equalsIgnoreCase(text)) {

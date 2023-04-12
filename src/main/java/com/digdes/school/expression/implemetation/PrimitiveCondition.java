@@ -14,7 +14,6 @@ public class PrimitiveCondition implements Condition {
     protected Command command;
     protected Value value;
 
-    private static Set<String> supportedFieldNames= new HashSet<>(Arrays.asList("id", "lastname", "age", "cost", "active"));
     public PrimitiveCondition(String columnName, Command command, Value value) {
         this.columnName = StringUtils.stripQuotes(columnName);
         this.command = command;
@@ -122,14 +121,7 @@ public class PrimitiveCondition implements Condition {
             return false;
         }
     }
-    @Override
-    public String toString() {
-        return "PrimitiveCondition{" +
-                "columnName='" + columnName + '\'' +
-                ", command=" + command +
-                ", value=" + value +
-                '}';
-    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,6 +129,7 @@ public class PrimitiveCondition implements Condition {
         PrimitiveCondition that = (PrimitiveCondition) o;
         return Objects.equals(columnName, that.columnName) && command == that.command && Objects.equals(value, that.value);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(columnName, command, value);

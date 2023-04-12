@@ -1,6 +1,5 @@
 package com.digdes.school.expression.implemetation;
 
-import com.digdes.school.exception.ConditionException;
 import com.digdes.school.expression.Condition;
 import com.digdes.school.expression.ConditionParser;
 
@@ -32,24 +31,5 @@ public abstract class ExpressionWithWhere {
             return matcher.group(2);
         }
         return null;
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ExpressionWithWhere that = (ExpressionWithWhere) o;
-        return Objects.equals(condition, that.condition) && Objects.equals(conditionWithWhere, that.conditionWithWhere) && Objects.equals(regex, that.regex);
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(condition, conditionWithWhere, regex);
-    }
-    @Override
-    public String toString() {
-        return "ExpressionWithWhere{" +
-                "condition=" + condition +
-                ", conditionWithWhere='" + conditionWithWhere + '\'' +
-                ", regex='" + regex + '\'' +
-                '}';
     }
 }

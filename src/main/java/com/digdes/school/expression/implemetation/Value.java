@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Value {
     protected String value;
     protected Object object;
+
     public Value(String valueStr) {
         value = valueStr;
         char start = 8216;
@@ -22,6 +23,7 @@ public class Value {
             object = Long.parseLong(valueStr);
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,12 +31,9 @@ public class Value {
         Value value1 = (Value) o;
         return Objects.equals(value, value1.value) && Objects.equals(object, value1.object);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(value, object);
-    }
-    @Override
-    public String toString() {
-        return value;
     }
 }

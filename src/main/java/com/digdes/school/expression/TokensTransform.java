@@ -1,8 +1,8 @@
 package com.digdes.school.expression;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface TokensTransform {
-    public HashMap<String, Object> tokensTransform(List<String> tokens);
+    Map<String, Object> tokensTransform(List<String> tokens);
 }

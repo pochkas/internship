@@ -5,6 +5,7 @@ import com.digdes.school.expression.ModifyingExpression;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class InsertExpression implements Expression, ModifyingExpression {
     Map<String, Object> map;
@@ -16,23 +17,6 @@ public class InsertExpression implements Expression, ModifyingExpression {
         mapList.add(map);
         List<Map<String, Object>> listWithInsert = new ArrayList<>();
         listWithInsert.add(map);
-        return listWithInsert;
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        InsertExpression that = (InsertExpression) o;
-        return Objects.equals(map, that.map);
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(map);
-    }
-    @Override
-    public String toString() {
-        return "InsertExpression{" +
-                "map=" + map +
-                '}';
+        return listWithInsert.stream().map(row -> (Map<String, Object>) new HashMap<>(row)).collect(Collectors.toList());
     }
 }

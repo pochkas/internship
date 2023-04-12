@@ -26,6 +26,7 @@ public class HigherCondition  implements Condition {
         }
         return false;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,16 +34,9 @@ public class HigherCondition  implements Condition {
         HigherCondition that = (HigherCondition) o;
         return Objects.equals(left, that.left) && operand == that.operand && Objects.equals(right, that.right);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(left, operand, right);
-    }
-    @Override
-    public String toString() {
-        return "HigherCondition{" +
-                "left=" + left +
-                ", operand=" + operand +
-                ", right=" + right +
-                '}';
     }
 }

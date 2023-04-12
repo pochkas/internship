@@ -4,6 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface ConditionParser {
-    public List<String> parseCondition(String conditionWithWhere);
-    public Condition createCondition(List<String> tokens);
+    List<String> parseCondition(String conditionWithWhere);
+    Condition createCondition(List<String> tokens);
 }

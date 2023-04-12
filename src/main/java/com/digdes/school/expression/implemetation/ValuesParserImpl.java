@@ -12,22 +12,21 @@ public class ValuesParserImpl implements ValuesParser {
     @Override
     public List<String> parseInsert(String valuesExpression) {
         String strWithoutInsert = valuesExpression;
-        if(valuesExpression.toLowerCase().startsWith("insert")) {
+        if (valuesExpression.toLowerCase().startsWith("insert")) {
             strWithoutInsert = valuesExpression.substring(13);
-        } else if(valuesExpression.toLowerCase().startsWith("update")) {
+        } else if (valuesExpression.toLowerCase().startsWith("update")) {
             UpdateParser updateParser = new UpdateParserImpl();
             strWithoutInsert = updateParser.parserForUpdate(valuesExpression).trim();
         }
         ArrayList<String> tokens = new ArrayList<>();
-        if(strWithoutInsert.contains(",")) {
+        if (strWithoutInsert.contains(",")) {
             String[] sentences = strWithoutInsert.trim().split(",");
             for (String s : sentences) {
                 String[] sentencesSplit = s.split("=");
                 tokens.add(sentencesSplit[0].trim());
                 tokens.add(sentencesSplit[1].trim());
             }
-        }
-        else{
+        } else {
             String[] sentencesSplit = strWithoutInsert.split("=");
             tokens.add(sentencesSplit[0].trim());
             tokens.add(sentencesSplit[1].trim());

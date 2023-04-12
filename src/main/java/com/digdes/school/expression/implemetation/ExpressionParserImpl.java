@@ -8,7 +8,7 @@ import com.digdes.school.expression.ExpressionParser;
 public class ExpressionParserImpl implements ExpressionParser {
     public Expression parse(String expression) {
         String command = expression.substring(0, 6);
-        return switch (command) {
+        return switch (command.toUpperCase()) {
             case "DELETE" -> new DeleteExpression(expression);
             case "UPDATE" -> new UpdateExpression(expression);
             case "SELECT" -> new SelectExpression(expression);

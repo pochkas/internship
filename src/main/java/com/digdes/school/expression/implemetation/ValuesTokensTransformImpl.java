@@ -21,6 +21,9 @@ public class ValuesTokensTransformImpl implements TokensTransform {
             }
             String obj = tokens.get(i + 1);
             Value value = new Value(obj);
+            if (str.equalsIgnoreCase("cost") && value.object instanceof Long) {
+                value.object = ((Long) value.object).doubleValue();
+            }
             if (str.equalsIgnoreCase("id") && value.object != null && !(value.object instanceof Long)) {
                 throw new CommandException("id has type " + value.object.getClass() + ", but id should be Long.");
             } else if (str.equalsIgnoreCase("lastname") && value.object != null && !(value.object instanceof String)) {

@@ -1,5 +1,7 @@
 package com.digdes.school.expression.implemetation;
 
+import com.digdes.school.exception.CommandException;
+
 import java.util.Objects;
 
 public class Value {
@@ -11,16 +13,20 @@ public class Value {
         char start = 8216;
         char end = 8217;
         char[] array = valueStr.toCharArray();
-        if (valueStr.equalsIgnoreCase("null")) {
-            object = null;
-        } else if ((valueStr.startsWith("'") && valueStr.endsWith("'")) || (array[0] == start && array[array.length - 1] == end)) {
-            object = valueStr.substring(1, valueStr.length() - 1);
-        } else if (valueStr.contains(".")) {
-            object = Double.parseDouble(valueStr);
-        } else if (valueStr.equalsIgnoreCase("true") || valueStr.equalsIgnoreCase("false")) {
-            object = Boolean.parseBoolean(valueStr);
-        } else {
-            object = Long.parseLong(valueStr);
+        try {
+            if (valueStr.equalsIgnoreCase("null")) {
+                object = null;
+            } else if ((valueStr.startsWith("'") && valueStr.endsWith("'")) || (array[0] == start && array[array.length - 1] == end)) {
+                object = valueStr.substring(1, valueStr.length() - 1);
+            } else if (valueStr.contains(".")) {
+                object = Double.parseDouble(valueStr);
+            } else if (valueStr.equalsIgnoreCase("true") || valueStr.equalsIgnoreCase("false")) {
+                object = Boolean.parseBoolean(valueStr);
+            } else {
+                object = Long.parseLong(valueStr);
+            }
+        } catch (Exception e) {
+            throw new CommandException(valueStr + " could not be parsed");
         }
     }
 

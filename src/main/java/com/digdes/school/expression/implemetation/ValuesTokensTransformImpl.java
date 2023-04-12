@@ -9,10 +9,10 @@ import java.util.*;
 
 // Transform List<String> to HashMap<String, Object> in expressions with VALUES. Check if column name has right type
 public class ValuesTokensTransformImpl implements TokensTransform {
-    protected HashMap<String, Object> map = new HashMap<>();
+    protected Map<String, Object> map = new HashMap<>();
 
     @Override
-    public HashMap<String, Object> tokensTransform(List<String> tokens) {
+    public Map<String, Object> tokensTransform(List<String> tokens) {
         for (int i = 0; i < tokens.size(); i += 2) {
             String str = tokens.get(i);
             str = StringUtils.stripQuotes(str);

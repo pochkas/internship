@@ -6,7 +6,7 @@ The data collection in this task is a structure representing some data table tha
 
 1) Clamps in Condition are not implemented;
 2) The validation of the request has been implemented;
-3) 3)CopyOnWriteArrayList and ConcurrentHashMap are used to create a Thread-safe collection;
+3) CopyOnWriteArrayList and ConcurrentHashMap are used to create a Thread-safe collection;
 
 Unit Tests Written
 

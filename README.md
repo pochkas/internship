@@ -1,17 +1,13 @@
-# internship
-Коллекция данных в данной задаче это структура представляющая собой некоторую
-таблицу данных, в которой есть наименования колонок и каждая строчка в таблице это
-элемент коллекции.
-Необходимо реализовать метод, который на вход получает команду в виде строки
-(требования к формату будет ниже). Команда должна выполнять четыре основные
-операции вставка, изменение, поиск и удаление элементов из коллекции данных.
-Также при изменении, удалении и поиске должны поддерживаться условия выборки из
-коллекции.
-На выход список элементов в коллекции, которые были найдены, либо которые были
-изменены, либо которые были добавлены, либо которые были удалены.
+# SQL parser
 
-1) Скобки в Condition не реализованы;
-2) Валидация запроса реализована;
-3) Для того, чтобы сделать коллекцию Thread-safe используется CopyOnWriteArrayList и ConcurrentHashMap;
-4) Написаны Unit тесты
-5) Все методы возвращают копии Map, чтобы нельзя было поменять коллекцию извне;
+The data collection in this task is a structure representing some data table that has column names and each row in the table is an element of the collection. It is necessary to implement a method that receives a command in the form of a string at the input (the format requirements will be below). The command must perform the four main operations of inserting, modifying, searching and deleting items from the data collection. Also, the sampling conditions from the collection should beined when modifying, deleting and searching. The output lists the items in the collection that were found, modified, added, or deleted.
+
+
+
+1) Clamps in Condition are not implemented;
+2) The validation of the request has been implemented;
+3) 3)CopyOnWriteArrayList and ConcurrentHashMap are used to create a Thread-safe collection;
+
+Unit Tests Written
+
+All methods return copies of Map so that it is not possible to change the collection from outside;
